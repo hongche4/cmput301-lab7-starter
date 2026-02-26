@@ -2,6 +2,7 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+            String clicked = cityAdapter.getItem(position);
+            Intent i = new Intent(MainActivity.this, ShowActivity.class);
+            i.putExtra(ShowActivity.EXTRA_CITY, clicked);
+            startActivity(i);
+        });
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 nameField.setVisibility(View.INVISIBLE);
             }
         });
-
         final Button deleteButton = findViewById(R.id.button_clear);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
